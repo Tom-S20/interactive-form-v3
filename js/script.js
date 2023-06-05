@@ -1,5 +1,10 @@
 
 const inputName = document.getElementById("name");
+const inputEmail = document.getElementById("email");
+const ccNum = document.getElementById("cc-num");
+const zipCode = document.getElementById("zip");
+const cvv = document.getElementById("cvv");
+const form = document.querySelector("form");
 const title = document.getElementById("title");
 const otherJobRole = document.getElementById("other-job-role");
 const tshirtDesign = document.getElementById("design");
@@ -8,8 +13,13 @@ const tshirtTheme = tshirtColor.children;
 
 inputName.focus();
 
-// console.log(title);
-// console.log(otherJobRole);
+// console.log(inputName);
+// console.log(inputEmail);
+// console.log(ccNum);
+// console.log(zipCode);
+// console.log(cvv);
+// console.log(form);
+
 
 //Hiding other-job-roles by default unless 'other' is selected in the dropdown menu
 otherJobRole.hidden = true;
@@ -73,10 +83,6 @@ const credit = document.getElementById("credit-card");
 const paypal = document.getElementById("paypal");
 const bitcoin = document.getElementById("bitcoin");
 
-// console.log(paymentSelection);
-// console.log(credit);
-// console.log(paypal);
-// console.log(bitcoin);
 paypal.hidden = true;
 bitcoin.hidden = true;
 
@@ -95,5 +101,29 @@ paymentSelect.addEventListener("change", (e) => {
         paypal.hidden = true;
         bitcoin.hidden = true;
         credit.hidden = false;
+    }
+})
+
+//Form Validation
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nameValue = inputName.value;
+    const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/;
+    const validName = nameRegex.test(nameValue);
+
+    if (!nameRegex.test(nameValue)) {
+        e.preventDefault();
+    }
+    console.log(nameValue);
+    console.log(validName);
+
+    const emailValue = inputEmail.value;
+    const emailRegex = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const validEmail = emailRegex.test(emailValue);
+    // console.log(emailValue);
+    // console.log(validEmail)
+
+    if (!emailRegex.test(emailValue)) {
+        e.preventDefualt();
     }
 })
