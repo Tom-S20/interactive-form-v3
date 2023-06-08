@@ -40,18 +40,33 @@ tshirtColor.disabled = true
 
 tshirtDesign.addEventListener('change', (e) => {
     tshirtColor.disabled = false
+    const design = tshirtDesign.value;
+
     for(let i=0; i<tshirtTheme.length; i++) {
-        if (e.target.value = tshirtColor.children[i].getAttribute("data-theme")) {
-            tshirtTheme[i].hidden = false;
-            tshirtTheme[i].setAttribute("selected", true);
+        const option = tshirtColor.options[i];
+        const theme = option.getAttribute('data-theme');
+
+        if (theme === design)  {
+            option.style.display = 'block';
         } else {
-            tshirtTheme[i].hidden = true;
-            tshirtTheme[i].removeAttribute("selected");
+            option.style.display = 'none';
         }
-        console.log(tshirtColor);
-        console.log(tshirtColor.children)
+    //     if (e.target.value = tshirtTheme[i].getAttribute("data-theme")) {
+    //         option.style.display = 'block';
+
+    // //         tshirtTheme[i].hidden = false;
+    // //         tshirtTheme[i].setAttribute("selected", true);
+    //     } else {
+    //         option.style.display = 'none';
+
+    // //         tshirtTheme[i].hidden = true;
+    // //         // tshirtTheme[i].removeAttribute("selected");
+    //     }
+    // //     console.log(tshirtColor);
+    // //     console.log(tshirtColor.children)
     }
 });
+
 //Acticity selection that will also sum up the total cost when multiple activites are selected
 const activities = document.getElementById("activities");
 const activityTotal = document.getElementById("activities-cost");
@@ -82,9 +97,13 @@ const paymentSelect = document.getElementById("payment");
 const credit = document.getElementById("credit-card");
 const paypal = document.getElementById("paypal");
 const bitcoin = document.getElementById("bitcoin");
+const ccExpMonth = document.getElementById("exp-month");
+const ccExpYear = document.getElementById("exp-year");
 
 paypal.hidden = true;
 bitcoin.hidden = true;
+
+paymentSelect.selectedIndex=1;
 
 paymentSelect.setAttribute("selected", true);
 
@@ -106,7 +125,7 @@ paymentSelect.addEventListener("change", (e) => {
 
 //Form Validation
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
+
     const nameValue = inputName.value;
     const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/;
     const validName = nameRegex.test(nameValue);
@@ -126,4 +145,37 @@ form.addEventListener("submit", (e) => {
     if (!emailRegex.test(emailValue)) {
         e.preventDefualt();
     }
+
+    //Register Activities
+    const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
+
+
+    //Validate Card Number
+    const cardValue = ccNum.value;
+    const cardRegex = /^[0-9]{13,16}$/;
+    const validCard = cardRegex.test(cardValue);
+
+    if (!cardRegex.test(cardValue)) {
+        e.preventDefault();
+    }
+
+    //Validate Zip code
+    const zipValue = zipCode.value;
+    const zipRegex = /^[0-9]{5}$/;
+    const validZip = zipRegex.test(zipValue);
+
+    if (!zipRegex.test(zipValue)) {
+        e.preventDefault();
+    }
+    //Validate cvv
+
+    const cvvValue = cvv.value;
+    const cvvRegex = /^[0-9]{3}$/;
+    const validCvv = cvvRegex.test(cvvValue);
+
+    if (!cvvRegex.test(cvvValue)) {
+        e.preventDefault();
+    }
+
+
 })
