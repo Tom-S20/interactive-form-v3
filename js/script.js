@@ -124,14 +124,17 @@ paymentSelect.addEventListener("change", (e) => {
 })
 
 //Form Validation
+const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
+
 form.addEventListener("submit", (e) => {
 
     const nameValue = inputName.value;
     const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/;
     const validName = nameRegex.test(nameValue);
 
-    if (!nameRegex.test(nameValue)) {
+    if (!validName) {
         e.preventDefault();
+
     }
     console.log(nameValue);
     console.log(validName);
@@ -142,40 +145,46 @@ form.addEventListener("submit", (e) => {
     // console.log(emailValue);
     // console.log(validEmail)
 
-    if (!emailRegex.test(emailValue)) {
+    if (!validEmail) {
         e.preventDefualt();
     }
 
     //Register Activities
-    const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
-
-
-    //Validate Card Number
-    const cardValue = ccNum.value;
-    const cardRegex = /^[0-9]{13,16}$/;
-    const validCard = cardRegex.test(cardValue);
-
-    if (!cardRegex.test(cardValue)) {
+    if (activityValid.length === 0) {
         e.preventDefault();
     }
 
-    //Validate Zip code
-    const zipValue = zipCode.value;
-    const zipRegex = /^[0-9]{5}$/;
-    const validZip = zipRegex.test(zipValue);
+    //Validating Credit Card fields only if credit card payment is selected
 
-    if (!zipRegex.test(zipValue)) {
-        e.preventDefault();
-    }
-    //Validate cvv
+    if (paymentSelect.value = credit) {
 
-    const cvvValue = cvv.value;
-    const cvvRegex = /^[0-9]{3}$/;
-    const validCvv = cvvRegex.test(cvvValue);
 
-    if (!cvvRegex.test(cvvValue)) {
+        //Validate Card Number
+        const cardValue = ccNum.value;
+        const cardRegex = /^[0-9]{13,16}$/;
+        const validCard = cardRegex.test(cardValue);
+
+    if (!validCard) {
         e.preventDefault();
     }
 
+        //Validate Zip code
+        const zipValue = zipCode.value;
+        const zipRegex = /^[0-9]{5}$/;
+        const validZip = zipRegex.test(zipValue);
+
+        if (!validZip) {
+            e.preventDefault();
+     }
+        //Validate cvv
+
+        const cvvValue = cvv.value;
+        const cvvRegex = /^[0-9]{3}$/;
+        const validCvv = cvvRegex.test(cvvValue);
+
+        if (!validCvv) {
+            e.preventDefault();
+        }
+    }
 
 })
