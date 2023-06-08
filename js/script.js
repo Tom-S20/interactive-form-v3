@@ -47,9 +47,14 @@ tshirtDesign.addEventListener('change', (e) => {
         const theme = option.getAttribute('data-theme');
 
         if (theme === design)  {
-            option.style.display = 'block';
+            option.style.display = 'inline';
+            tshirtTheme[i].hidden = false;
+            tshirtTheme[i].setAttribute("selected", true);
         } else {
             option.style.display = 'none';
+            tshirtTheme[i].hidden = true;
+            tshirtTheme[i].removeAttribute("selected");
+
         }
     //     if (e.target.value = tshirtTheme[i].getAttribute("data-theme")) {
     //         option.style.display = 'block';
@@ -59,8 +64,6 @@ tshirtDesign.addEventListener('change', (e) => {
     //     } else {
     //         option.style.display = 'none';
 
-    // //         tshirtTheme[i].hidden = true;
-    // //         // tshirtTheme[i].removeAttribute("selected");
     //     }
     // //     console.log(tshirtColor);
     // //     console.log(tshirtColor.children)
@@ -125,6 +128,9 @@ paymentSelect.addEventListener("change", (e) => {
 
 //Form Validation
 const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
+const nameHint = document.getElementById("name-hint");
+const emailHint = document.getElementById('email-hint');
+const activitesHint = docoument.getElementById('activities-hint');
 
 form.addEventListener("submit", (e) => {
 
@@ -132,9 +138,16 @@ form.addEventListener("submit", (e) => {
     const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/;
     const validName = nameRegex.test(nameValue);
 
-    if (!validName) {
+    if (inputName.value.trim() === '') {
         e.preventDefault();
+        inputName.parentElement.classList.add('not-valid');
+        inputName.parentElement.classList.remove('valid');
+        nameHint.style.display = 'block'
 
+    } else {
+        inputName.parentElement.classList.add('valid');
+        inputName.parentElement.classList.remove('not-valid');
+        nameHint.style.display = 'none'
     }
     console.log(nameValue);
     console.log(validName);
@@ -146,17 +159,27 @@ form.addEventListener("submit", (e) => {
     // console.log(validEmail)
 
     if (!validEmail) {
-        e.preventDefualt();
+        e.preventDefault();
+        inputEmail.parentElement.classList.add('not-valid');
+        inputEmail.parentElement.classList.remove('valid');
+        emailHint.style.display = 'block';
+
+    } else {
+        inputEmail.parentElement.classList.add('valid');
+        inputEmail.parentElement.classList.remove('not-valid');
+        emailHint.style.display = 'none';
+
     }
 
     //Register Activities
     if (activityValid.length === 0) {
         e.preventDefault();
+
     }
 
     //Validating Credit Card fields only if credit card payment is selected
 
-    if (paymentSelect.value = credit) {
+    if (paymentSelect.value === credit) {
 
 
         //Validate Card Number
