@@ -128,9 +128,13 @@ paymentSelect.addEventListener("change", (e) => {
 
 //Form Validation
 const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
+// const
 const nameHint = document.getElementById("name-hint");
 const emailHint = document.getElementById('email-hint');
-const activitesHint = docoument.getElementById('activities-hint');
+const activitiesHint = document.getElementById('activities-hint');
+const ccHint = document.getElementById('cc-hint');
+const zipHint = document.getElementById('zip-hint');
+const cvvHint = document.getElementById('cvv-hint');
 
 form.addEventListener("submit", (e) => {
 
@@ -171,9 +175,17 @@ form.addEventListener("submit", (e) => {
 
     }
 
-    //Register Activities
+    //Register Activities has items checked and will focus or blur sections to
+    // promote accessibility and provide validation of selections without conflicts.
     if (activityValid.length === 0) {
         e.preventDefault();
+        activities.parentElement.classList.add('not-valid');
+        activities.parentElement.classList.remove('valid');
+        activitiesHint.style.display = 'block';
+    } else {
+        activities.parentElement.classList.add('valid');
+        activities.parentElement.classList.remove('not-valid');
+        activitiesHint.style.display = 'none';
 
     }
 
@@ -187,9 +199,16 @@ form.addEventListener("submit", (e) => {
         const cardRegex = /^[0-9]{13,16}$/;
         const validCard = cardRegex.test(cardValue);
 
-    if (!validCard) {
+        if (!validCard) {
         e.preventDefault();
-    }
+        ccNum.parentElement.classList.add('not-valid');
+        ccNum.parentElement.classList.remove('valid');
+        ccHint.style.display = 'block';
+         } else {
+        ccNum.parentElement.classList.add('valid');
+        ccNum.parentElement.classList.remove('not-valid');
+        ccHint.style.display = 'none';
+        }
 
         //Validate Zip code
         const zipValue = zipCode.value;
@@ -198,7 +217,16 @@ form.addEventListener("submit", (e) => {
 
         if (!validZip) {
             e.preventDefault();
-     }
+            zipCode.parentElement.classList.add('not-valid');
+            zipCode.parentElement.classList.remove('valid');
+            zipHint.style.display = 'block';
+             } else {
+            zipCode.parentElement.classList.add('valid');
+            zipCode.parentElement.classList.remove('not-valid');
+            zipHint.style.display = 'none';
+            }
+
+
         //Validate cvv
 
         const cvvValue = cvv.value;
@@ -207,7 +235,16 @@ form.addEventListener("submit", (e) => {
 
         if (!validCvv) {
             e.preventDefault();
+            cvv.parentElement.classList.add('not-valid');
+            cvv.parentElement.classList.remove('valid');
+            cvvHint.style.display = 'block';
+             } else {
+            cvv.parentElement.classList.add('valid');
+            cvv.parentElement.classList.remove('not-valid');
+            cvvHint.style.display = 'none';
+            }
+
         }
-    }
+
 
 })
