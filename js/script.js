@@ -128,7 +128,7 @@ paymentSelect.addEventListener("change", (e) => {
 
 //Form Validation
 const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
-// const
+const activityCheckbox = activities.querySelectorAll('input[type="checkbox"]');
 const nameHint = document.getElementById("name-hint");
 const emailHint = document.getElementById('email-hint');
 const activitiesHint = document.getElementById('activities-hint');
@@ -179,19 +179,19 @@ form.addEventListener("submit", (e) => {
     // promote accessibility and provide validation of selections without conflicts.
     if (activityValid.length === 0) {
         e.preventDefault();
-        activities.parentElement.classList.add('not-valid');
-        activities.parentElement.classList.remove('valid');
+        activities.classList.add('not-valid');
+        activities.classList.remove('valid');
         activitiesHint.style.display = 'block';
     } else {
-        activities.parentElement.classList.add('valid');
-        activities.parentElement.classList.remove('not-valid');
+        activities.classList.add('valid');
+        activities.classList.remove('not-valid');
         activitiesHint.style.display = 'none';
 
     }
 
     //Validating Credit Card fields only if credit card payment is selected
-
-    if (paymentSelect.value === credit) {
+    console.log(paymentSelect.value)
+    if (paymentSelect.value === "credit-card") {
 
 
         //Validate Card Number
@@ -246,5 +246,17 @@ form.addEventListener("submit", (e) => {
 
         }
 
+
+})
+
+
+//Accessibility - Focus and Blur for the Activities Section
+activityValid.forEach ( isChecked => {
+    isChecked.addEventListener('focus', function() {
+        isChecked.parentElement.classList.add("focus");
+    })
+    isChecked.addEventListener('blur', function() {
+        isChecked.parentElement.classList.remove("focus");
+    })
 
 })
