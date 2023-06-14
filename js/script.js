@@ -127,7 +127,6 @@ paymentSelect.addEventListener("change", (e) => {
 })
 
 //Form Validation
-const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
 const activityCheckbox = activities.querySelectorAll('input[type="checkbox"]');
 const nameHint = document.getElementById("name-hint");
 const emailHint = document.getElementById('email-hint');
@@ -141,6 +140,8 @@ form.addEventListener("submit", (e) => {
     const nameValue = inputName.value;
     const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/;
     const validName = nameRegex.test(nameValue);
+    const activityValid = activities.querySelectorAll('input[type="checkbox"]:checked');
+
 
     if (inputName.value.trim() === '') {
         e.preventDefault();
@@ -251,10 +252,10 @@ form.addEventListener("submit", (e) => {
 
 
 //Accessibility - Focus and Blur for the Activities Section
-activityValid.forEach ( isChecked => {
-    isChecked.addEventListener('focus', function() {
+activityCheckbox.forEach ( isChecked => {
+    isChecked.addEventListener('focus',  function() {
         isChecked.parentElement.classList.add("focus");
-    })
+    });
     isChecked.addEventListener('blur', function() {
         isChecked.parentElement.classList.remove("focus");
     })
