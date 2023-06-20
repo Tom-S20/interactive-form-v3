@@ -10,6 +10,8 @@ const otherJobRole = document.getElementById("other-job-role");
 const tshirtDesign = document.getElementById("design");
 const tshirtColor = document.getElementById("color");
 const tshirtTheme = tshirtColor.children;
+const activitiesAll = document.querySelector('#activities');
+const activitiesBoxes = document.querySelectorAll('.activities input');
 
 inputName.focus();
 
@@ -35,6 +37,8 @@ title.addEventListener('change',(e) => {
 // console.log(tshirtDesign);
 // console.log(tshirtColor);
 // console.log(tshirtColor.children)
+
+//Tshirt section - design options will determine the color options that are visible
 
 tshirtColor.disabled = true
 
@@ -75,7 +79,7 @@ const activities = document.getElementById("activities");
 const activityTotal = document.getElementById("activities-cost");
 let totalCost = 0
 
-activities.addEventListener('change', (e) => {
+activitiesAll.addEventListener('change', (e) => {
     const boxCheck = e.target;
 
     if (boxCheck.type === 'checkbox') {
@@ -89,9 +93,42 @@ activities.addEventListener('change', (e) => {
         }
             activityTotal.textContent = 'Total: $' + totalCost;
         }
+// Acitivities loop for conflicts
 
 
 
+    // const selected = e.target;
+    // const clickDataTime = selected.getAttribute('data-date-and-time');
+
+    // activitiesBoxes.forEach(eventData => {
+    //     const activityData = eventData.getAttribute('data-day-and-time');
+    //     if(activityData === clickDataTime && selected !== eventData) {
+    //         if(selected.checked) {
+    //             eventData.disabled = true;
+    //             eventData.parentElement.classList.add('disabled');
+    //         } else {
+    //             eventData.disabled = false;
+    //             eventData.parentElement.classList.remove('disabled');
+    //         }
+    //     }
+
+
+// })
+//        for (let i=0; i<activityBoxChild.length; i++){
+//         const boxInput = activityBoxChild[i].querySelector("input");
+//         if (e.target.getAttribute("data-day-and-time") === boxInput.getAttribute("data-day-and-time")){
+//             boxInput.disabled = true;
+//             e.target.disabled = false;
+//         } else {
+//         for (let i=0; i<activityBoxChild.length; i++){
+//         const boxInput = activityBoxChild[i].querySelector("input");
+//         if (e.target.getAttribute("data-day-and-time") === boxInput.getAttribute("data-day-and-time")){
+//             boxInput.disabled = false;
+//             e.target.disabled = false;
+//         }
+//         }
+//     }
+// }
 })
 
 
@@ -154,8 +191,8 @@ form.addEventListener("submit", (e) => {
         inputName.parentElement.classList.remove('not-valid');
         nameHint.style.display = 'none'
     }
-    console.log(nameValue);
-    console.log(validName);
+    // console.log(nameValue);
+    // console.log(validName);
 
     const emailValue = inputEmail.value;
     const emailRegex = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -191,7 +228,7 @@ form.addEventListener("submit", (e) => {
     }
 
     //Validating Credit Card fields only if credit card payment is selected
-    console.log(paymentSelect.value)
+    // console.log(paymentSelect.value)
     if (paymentSelect.value === "credit-card") {
 
 
@@ -261,3 +298,15 @@ activityCheckbox.forEach ( isChecked => {
     })
 
 })
+
+//Loop through acitivites for specific time, compare times
+//and make sure there is no conflict.
+// Check conflicts for validation and show error message if there is.
+
+
+
+//Real time error message.  Provides form validation at the moment they occur
+
+
+
+//Conditional Error Message providing info for certain types of errors.
